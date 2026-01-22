@@ -19,6 +19,12 @@ const ProductDetail = () => {
         );
     }
 
+    const resolveImg = (path) => {
+        if (path.startsWith('http')) return path;
+        const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+        return `${import.meta.env.BASE_URL}${cleanPath}`;
+    };
+
     return (
         <div className="page-detail pt-navbar">
             <div className="container">
@@ -33,7 +39,7 @@ const ProductDetail = () => {
                         animate={{ opacity: 1, x: 0 }}
                     >
                         <div className="detail-image-wrap">
-                            <img src={product.image} alt={product.name} />
+                            <img src={resolveImg(product.image)} alt={product.name} />
                         </div>
                     </motion.div>
 

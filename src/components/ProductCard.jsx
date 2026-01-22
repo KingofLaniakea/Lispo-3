@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './ProductCard.css';
 
+const resolveImg = (path) => {
+    if (path.startsWith('http')) return path;
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    return `${import.meta.env.BASE_URL}${cleanPath}`;
+};
+
 const ProductCard = ({ product }) => {
     return (
         <motion.div
@@ -14,7 +20,7 @@ const ProductCard = ({ product }) => {
         >
             <Link to={`/products/${product.id}`} className="card-link">
                 <div className="card-image-wrap">
-                    <img src={product.image} alt={product.name} loading="lazy" />
+                    <img src={resolveImg(product.image)} alt={product.name} loading="lazy" />
                     <div className="card-category">{product.category}</div>
                 </div>
                 <div className="card-body">
